@@ -9,6 +9,12 @@ var id = '5bef7eb813740f8519131e94';
 if(!ObjectID.isValid(id)) {
     console.log("ID is not valid");
 }
+
+//retunrs all todos
+Todo.find().then((todos) => {
+    console.log('Todos:', todos);
+});
+
 Todo.find({
     _id: id
 }).then((todos) => {
