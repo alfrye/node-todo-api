@@ -1,3 +1,4 @@
+require('./config/config.js');
 const _ = require('lodash');
 var express = require('express');
 
@@ -8,7 +9,7 @@ var {mongoose} =  require('./db/mongoose.js');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/users');
 
-const port = (process.env.PORT || 3000);
+
 
 var app = express();
 //middleware config
@@ -89,8 +90,8 @@ app.patch('/todos/:id', (req,res) => {
     })
 });
 
-app.listen(port, () => {
-    console.log(`Started on port ${port}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Started on port ${process.env.PORT}`);
 })
 
 //mongoose uses a model
