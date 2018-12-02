@@ -111,9 +111,10 @@ app.post('/users', (req,res) => {
 app.get('/users/me', authenticate, (req,res) => {
    res.send(req.user);
 });
+
 app.listen(process.env.PORT, () => {
     console.log(`Started on port ${process.env.PORT}`);
-})
+});
 
 //mongoose uses a model
 
