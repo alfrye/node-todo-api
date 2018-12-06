@@ -9,7 +9,6 @@ var {mongoose} =  require('./db/mongoose.js');
 var {Todo} = require('./models/todo');
 var {User} = require('./models/users');
 var {authenticate} = require('./middleware/authenticate');
-const bcrypt = require('bcryptjs');
 
 var app = express();
 //middleware config
@@ -115,13 +114,14 @@ app.get('/users/me', authenticate, (req,res) => {
 app.post('/users/login', (req,res) => {
     var body = _.pick(req.body,['email','password']);
      console.log(body.password);
+    //res.send(body);
     
-     User.findByCredentials(body.email,body.password).then((user) => {
-       res.send(user);
-     }).catch((err) => {
-         console.log('error');
-         res.status(400).send();
-     })
+      User.findByCredentials(body.email,body.password).then((user) => {
+          res.send(user);
+      }).catch((err) => {
+          console.log('error');
+          res.status(400).send();
+      });
 });
 
 app.listen(process.env.PORT, () => {

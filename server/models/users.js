@@ -73,30 +73,30 @@ UserSchema.statics.findByToken = function(token) {
      'tokens.access': 'auth'
   });
 };
-UserSchema.statics.findByCredentials = function(email,password) {
-  var User = this;
+UserSchema.statics.findByCredentials = function (email, password) {
+    var User = this;
 
-  return User.findOne({email}).then((user) => {
-    if(!user) {
-      console.log('no user so reject');
-      return Promise.reject();
-    }
+   return User.findOne({email}).then((user) => {
+      if(!user) {
+       console.log('no user so reject');
+       return Promise.reject();
+     }
 
-    return new Promise((resolve,reject) => {
-       bcrypt.compare(password,user.password, (err,res) => {
-         console.log(user.password);
+     return new Promise((resolve,reject) => {
+        bcrypt.compare(password,user.password, (err,res) => {
+          console.log(user.password);
          if(res) {
-          console.log('good token');
-             resolve(user);
+           console.log('good token');
+              resolve(user);
          } else {
            console.log('reject');
            reject();
-         };
-       })
+         }
+        });
 
-    });
+   });
   });
-};
+ };
 
 UserSchema.pre('save',function(next) {
  var user = this;
