@@ -22,7 +22,7 @@ const bcrypt = require('bcryptjs');
   },
   password: {
     type: String,
-    require: true,
+    required: true,
     minlength: 6
   },
   tokens: [{
@@ -83,14 +83,15 @@ UserSchema.statics.findByCredentials = function (email, password) {
      }
 
      return new Promise((resolve,reject) => {
-        bcrypt.compare(password,user.password, (err,res) => {
+        bcrypt.compare('test1234',user.password, (err,result) => {
           console.log(user.password);
-         if(res) {
+          console.log(err);
+         if(result) {
            console.log('good token');
               resolve(user);
          } else {
            console.log('reject');
-           reject();
+           reject('no match');
          }
         });
 
@@ -100,7 +101,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
 
 UserSchema.pre('save',function(next) {
  var user = this;
-  if(user.isModified) {
+  if(user.isModified('password')) {
     bcrypt.genSalt(10,(err,salt) => {
       bcrypt.hash(user.password,salt,(err,hash) => {
         user.password = hash;
