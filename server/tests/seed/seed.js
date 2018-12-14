@@ -6,22 +6,23 @@ const {User} = require('./../../models/users');
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 
+  
+
+
 const users = [{
    _id: userOneId,
-   email: 'alan@example.com',
+   email: 'steve@example.com',
    password: 'userOnePass',
    tokens: [{
        access: 'auth',
        token: jwt.sign({_id: userOneId, access: 'auth'}, 'abc123').toString()
-   }
-
-   ]
+   }]
 },
 {
    _id: userTwoId,
-   email: 'bill2@example.com',
-   pasword: 'userTwoPassword'
-}]
+   email: 'bill55@example.com',
+   password: 'userTwoPass'
+}];
 
 const todos = [{
     _id: new ObjectID(),
@@ -45,7 +46,7 @@ const populateUsers = (done) => {
        var userOne = new User(users[0]).save();
        var userTwo = new User(users[1]).save();
        
-       return Promise.all([userOne, userTwo])
+       return Promise.all([userOne,userTwo])
 
     }).then(() => done());
 };

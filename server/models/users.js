@@ -3,9 +3,12 @@ const validator = require('validator');
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
+
+
+//**OLD CODE */
 // we need to add methods to our mongoose model mongoose allows use to do 
 //this by using a mongoose schema
- var UserSchema = mongoose.Schema({
+ var UserSchema = new mongoose.Schema({
   email: {
        type:String,
         required: true,
@@ -13,12 +16,9 @@ const bcrypt = require('bcryptjs');
         trim: true,
         unique: true,
         validate: {
-          validator: (value) => {
-            return validator.isEmail(value);
-          },
+          validator: validator.isEmail,
           message: '{VALUE} is not a valid email'
         }
-
   },
   password: {
     type: String,
@@ -83,7 +83,7 @@ UserSchema.statics.findByCredentials = function (email, password) {
      }
 
      return new Promise((resolve,reject) => {
-        bcrypt.compare('test1234',user.password, (err,result) => {
+        bcrypt.compare(password,user.password, (err,result) => {
           console.log(user.password);
           console.log(err);
          if(result) {
