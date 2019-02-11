@@ -25,6 +25,12 @@ const bcrypt = require('bcryptjs');
     required: true,
     minlength: 6
   },
+  profiles: {
+      type: Map,
+      
+      required: false,
+
+  },
   tokens: [{
     access: {
       type: String,
